@@ -14,6 +14,15 @@
         <a href="/articles/{{$article->id}}">Read more</a>
         </div>
         <div class="card-footer clearfix bg-white">
+            @if($article->user_id == Auth::id())
+        <form action="/articles/{{$article->id}}" class="float-right" method="POST" style="margin-left: 20px">
+            {{csrf_field()}}
+            {{method_field('DELETE')}}
+                <button class="btn btn-danger btn-sm">
+                    Delete
+                </button>
+            </form>
+            @endif
             <i class="fa fa-heart float-right" aria-hidden="true"></i>
         </div>
       </div>

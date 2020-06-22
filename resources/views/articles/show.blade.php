@@ -6,6 +6,9 @@
     <div class="card">
         <div class="card-header">
         <span>Abu Horaira</span>
+        <small>
+        <a href="/articles/{{$article->id}}/edit">Edit</a>
+        </small>
         <span class="float-right">{{$article->created_at->diffForHumans()}}</span>
         </div>
         <div class="card-body">

@@ -12,7 +12,7 @@ class ArticlesController extends Controller
     
     public function index()
     {
-        $articles = Article::paginate(10);
+        $articles = Article::withTrashed()->paginate(10);
         // $articles = DB::table('articles')->get();
 
         // $articles = Article::whereLive(1)->get();
@@ -49,6 +49,7 @@ class ArticlesController extends Controller
         // DB::table('articles')->insert($request->all());
 
         Article::create($request->all());
+        return redirect('/articles'); 
         // Article::create([
         //     'user_id' => Auth::user()->id,
         //     'content' => $request->content,
@@ -90,7 +91,13 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $article = Article::findOrFail($id);
+        if(! isset($request->live))
+        $article->update(array_merge($request->all(), ['live' => false]));
+        else        
+        $article->update($request->all());
         
+        return redirect('/articles'); 
     }
 
     /**
@@ -101,6 +108,12 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::destroy($id);
+        // $article = Article::findOrFail($id);
+        // $article->forceDelete();
+        // $article->delete();
+
+        
+        return redirect('/articles'); 
     }
 }

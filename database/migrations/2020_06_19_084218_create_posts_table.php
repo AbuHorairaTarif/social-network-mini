@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->text('content');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
